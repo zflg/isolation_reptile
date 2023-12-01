@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOST:localhost:3306/reptile}?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DB_USER:revshop}
+    password: ${DB_PASSWORD:revshop}
+  jpa:
+    hibernate:
+      ddl-auto: update
