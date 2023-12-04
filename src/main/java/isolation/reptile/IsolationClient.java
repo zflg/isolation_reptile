@@ -104,7 +104,7 @@ public class IsolationClient {
     SimpleDateFormat sdf = new SimpleDateFormat("MMddHHmm");
     String date = sdf.format(new Date());
     // format workPower
-    String workPowerStr = String.valueOf(workPower * 100);
+    String workPowerStr = String.valueOf(workPower);
     // format body
     String body = String.format("ST 0817202201 TT %s NS01 %s BV 138 SI1 15 DC 19 ", date, workPowerStr);
     // add checksum
@@ -112,18 +112,14 @@ public class IsolationClient {
   }
 
   private void send(String msg) {
+    // 创建UDP套接字
     try (DatagramSocket socket = new DatagramSocket()) {
-      // 创建UDP套接字
-
       // 准备要发送的数据
       byte[] sendData = msg.getBytes();
-
       // 创建数据报，指定服务器地址和端口
       DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName(UDP_IP), UDP_PORT);
-
       // 发送数据报
       socket.send(sendPacket);
-
       System.out.println("Data sent to server successfully.");
     } catch (IOException e) {
       e.printStackTrace();
@@ -143,8 +139,8 @@ public class IsolationClient {
     // 创建实例对象
     IsolationClient isolationClient = new IsolationClient();
 
-    // 定义间隔时间为5分钟
-    long interval = INTERVAL_MINUTES * 60 * 1000; // 5分钟
+    // 定义间隔时间
+    long interval = INTERVAL_MINUTES * 60 * 1000;
 
     // 创建一个 TimerTask 匿名内部类
     TimerTask task = new TimerTask() {
